@@ -1,0 +1,485 @@
+
+<section class="main-content">
+    <ul class="breadcrumb breadcrumb-style ">
+      <li class="breadcrumb-item">
+        <h5 class="page-title m-b-0">Look up</h5>
+      </li>
+      <li class="breadcrumb-item bcrumb-1">
+        <a routerLink="/dashboard/main">
+          <i class="fas fa-home font-17"></i></a>
+      </li>
+      <li class="breadcrumb-item">Look Up</li>
+    </ul>
+    <div class="section-body">
+      <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="card">
+            <div class="p-10">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="row m-0">
+                    <div class="col-lg-3 p-0">
+                      <div class="ngxTableHeader">
+                        <div class="table-title">
+                          <h2><strong>Look Up</strong></h2>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-9 p-0">
+                      <div class="ngxTableHeader">
+                        <!-- <div class="table-search-area">
+                          <div>
+                            <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                            <input placeholder="Search" type="text" class="browser-default search-field"
+                              (keyup)='filterDatatable($event)' aria-label="Search box">
+                          </div>
+                        </div> -->
+                        <div class="header-buttons-left">
+                          <div class="tbl-btn-style">
+                            <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='addRow(addRecord)'>
+                              <i class="material-icons">add</i>
+                            </button>
+                            <button [hidden]=!isRowSelected class="btn btn-icon icon-left btn-danger rounded-button"
+                              (click)='deleteSelected()'>
+                              <i class="material-icons">delete</i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
+                columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
+                [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable" [selected]="selected"
+                [selectionType]="'checkbox'" (select)='onSelect($event)'>
+  
+                <ngx-datatable-column [width]="70" [sortable]="false" [draggable]="false" [resizeable]="false"
+                  [canAutoResize]="false" [headerCheckboxable]="true" [checkboxable]="true">
+                </ngx-datatable-column>
+  
+                <!-- <ngx-datatable-column [width]="200" name="Name">
+                  <ng-template let-row="row" let-value="value" let-i="index" ngx-datatable-cell-template>
+                    <img src="{{ row.img }}" class="data-table-img" />
+                    <div class="name-col-style">
+                      <div>{{row.bankid}} {{row.bankname}}</div>
+                      <div class="font-12 text-muted">{{row.designation}}</div>
+                    </div>
+                  </ng-template>
+                </ngx-datatable-column> -->
+                <!-- <ngx-datatable-column name="Bankid" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.bankid}}
+                  </ng-template>
+                </ngx-datatable-column> -->
+                <ngx-datatable-column name="Lookuptypename" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.lookupname}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <!-- <ngx-datatable-column name="Bankaddress" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.bankaddress}}
+                  </ng-template>
+                </ngx-datatable-column> -->
+                <ngx-datatable-column name="shortname">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.shortname}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="parent">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.parent}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="parentid">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.parentid}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="lookuptype">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.lookuptype}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="lookuptypeid">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.lookuptypeid}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Contact id">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.ltypeparent}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <!-- <ngx-datatable-column name="CreatedBy">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.createdby}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="LastModifiedBy">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.modifiedby}}
+                  </ng-template>
+                </ngx-datatable-column> -->
+                <ngx-datatable-column [width]="100" name="Actions" sortable="false">
+                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                    <span>
+                      <button class="btn btn-tbl-edit h-auto" (click)='editRow(row, rowIndex, editRecord)'>
+                        <i class="fas fa-pen"></i>
+                      </button>
+                      <button class="btn btn-tbl-delete h-auto" (click)='deleteSingleRow(row)'>
+                        <i class="far fa-trash-alt"></i>
+                      </button>
+                    </span>
+                  </ng-template>
+                </ngx-datatable-column>
+              </ngx-datatable>
+              <!-- Add Record Modal Window -->
+              <ng-template #addRecord let-modal>
+                <div class="modal-header editRowModal">
+                  <h4 class="modal-title" id="modal-basic-title">
+                    <div class="table-modal-header">
+                      <img [src]='newUserImg' alt="avatar">
+                      <div class="modal-about">
+                        <div class="fw-bold p-t-10 font-17">
+                         Lookup</div>
+                      </div>
+                    </div>
+                  </h4>
+                  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                    <span aria-hidden="true"><i class="material-icons">close</i></span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form class="register-form" [formGroup]="register" (ngSubmit)="onAddRowSave(register)">
+                    <div class="input-field col s12 d-none">
+                      <input formControlName="id" class="form-control" type="hidden">
+                    </div>
+                    <div class="input-field col s12 d-none">
+                      <input formControlName="img" class="form-control" type="hidden">
+                    </div>
+                    <div class="row">
+                      <!-- <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <label>Bank ID <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" placeholder="Bank ID" formControlName="bankid"
+                          required>
+                        <small class="form-text text-danger"
+                          *ngIf="!register.get('bankid').valid && register.get('bankid').touched"> Bank ID is
+                          required</small>
+                      </div> -->
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <label>lookupname <span class="text-danger"></span></label>
+                        <input type="text" class="form-control" placeholder="lookupname" formControlName="lookupname">
+                        <!-- <select class="form-control"  placeholder="lookupname" formControlName="lookupname" required>
+                          <option value="" disabled selected>Select lookupname</option>
+                          <option *ngFor="let doctype of documenttype" [value]="doctype.value">
+                            {{doctype.value}}
+                          </option>
+                        </select> -->
+                        <!-- <small class="form-text text-danger"
+                          *ngIf="!register.get('bankname').valid && register.get('bankname').touched"> Bank name is
+                          required</small> -->
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <label>shortname <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="shortname" formControlName="shortname" required>
+                        <!-- <select class="form-control"  placeholder="shortname" formControlName="doctype" required>
+                          <option value="" disabled selected>Select Certificates Type</option>
+                          <option *ngFor="let certificate of certificates" [value]="certificate.value">
+                            {{certificate.value}}
+                          </option>
+                        </select> -->
+                        <small class="form-text text-danger"
+                          *ngIf="!register.get('bankaccno').valid && register.get('bankaccno').touched"> shortname is
+                          required</small>
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <!-- <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <label>Bank Address<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="BankAddress" formControlName="bankaddress" required>
+                        <small class="form-text text-danger"
+                          *ngIf="!register.get('bankaddress').valid && register.get('bankaddress').touched"> Bank Address is
+                          required</small>
+                      </div> -->
+                      
+                    <div class="row">
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <label>parent <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" placeholder="parent" formControlName="parent" required>
+                        <!-- <select class="form-control"  placeholder="Statutory" formControlName="doctype" required>
+                          <option value="" disabled selected>Select Experience</option>
+                          <option *ngFor="let experience of experiences" [value]="experience.value">
+                            {{experience.value}}
+                          </option>
+                        </select> -->
+                        <small class="form-text text-danger"
+                          *ngIf="!register.get('userid').valid && register.get('userid').touched"> parent is
+                          required</small>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <label>parent Id<span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" placeholder="parentid" formControlName="parentid" required>
+                        <small class="form-text text-danger"
+                          *ngIf="!register.get('companyid').valid && register.get('companyid').touched"> parent Id is required
+                           </small>
+                      </div>
+                    </div>  
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <label>lookuptype <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" placeholder="lookuptype" formControlName="lookuptype" required>
+                        <small class="form-text text-danger"
+                          *ngIf="!register.get('lookuptype').valid && register.get('lookuptype').touched"> lookuptype is
+                          required</small>
+                       
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <label>lookuptypeid<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="lookuptypeid" formControlName="lookuptypeid" required>
+                        <small class="form-text text-danger"
+                          *ngIf="!register.get('lookuptypeid').valid && register.get('lookuptypeid').touched"> Please enter a valid
+                          lookuptypeid</small>
+                      </div>
+                      
+                    </div>
+                    <div class="row">
+                      
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <label>ltypeparent <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="ltypeparent" formControlName="ltypeparent" required>
+                        <small class="form-text text-danger"
+                          *ngIf="!register.get('ltypeparent').valid && register.get('ltypeparent').touched"> Please enter a valid
+                          ltypeparent</small>
+                        
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <label>description<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="description" formControlName="description" required>
+                        <small class="form-text text-danger"
+                          *ngIf="!register.get('description').valid && register.get('description').touched"> Please enter a valid
+                          description</small>
+                          
+                      </div>
+                    </div>
+                    <!-- <div class="row">
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <label>Contact Id<span class="text-danger"></span></label>
+                        <input type="text" class="form-control" placeholder="contactid" formControlName="contactid" required>
+                        <small class="form-text text-danger"
+                          *ngIf="!register.get('contactid').valid && register.get('contactid').touched"> Please enter Contact Id
+                           </small>
+                          
+                      </div>
+                    </div> -->
+                    <!-- <div class="row">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                        <label>Contact Address<span class="text-danger"></span></label>
+                        <input type="text" class="form-control" placeholder="ContactAddress" formControlName="ContactAddress" required>
+                        <small class="form-text text-danger"
+                          *ngIf="!register.get('ContactAddress').valid && register.get('ContactAddress').touched"> Please enter a valid
+                           Contact Address</small>
+                      </div>
+                    </div> -->
+                    <!-- <div class="row">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                        <label>Created By<span class="text-danger"></span></label>
+                        <input type="number" class="form-control" placeholder="CreatedBy" formControlName="createdby" required>
+                        <small class="form-text text-danger"
+                          *ngIf="!register.get('createdby').valid && register.get('createdby').touched"> Created By
+                        </small>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                        <label>Last Modified By<span class="text-danger"></span></label>
+                        <input type="number" class="form-control" placeholder="LastModifiedBy" formControlName="modifiedby" required>
+                        <small class="form-text text-danger"
+                          *ngIf="!register.get('modifiedby').valid && register.get('modifiedby').touched"> Last Modified By
+                        </small>
+                      </div>
+                    </div> -->
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary" [disabled]="register.valid">Submit</button>
+                      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+                    </div>
+                  </form>
+                </div>
+              </ng-template>
+              <!-- Edit Record Modal Window -->
+              <ng-template #editRecord let-modal>
+                <div class="modal-header editRowModal">
+                  <h4 class="modal-title" id="modal-basic-title">
+                    <div class="table-modal-header">
+                      <img [src]='selectedRowData?.img' alt="avatar">
+                      <div class="modal-about">
+                        <div class="fw-bold p-t-10 font-17">
+                          {{selectedRowData?.bankid}}
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </h4>
+                  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true"><i class="material-icons">close</i></span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form [formGroup]="editForm" (ngSubmit)="onEditSave(editForm)">
+                    <div class="input-field col s12 d-none">
+                      <input formControlName="id" class="form-control" type="hidden">
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <label>lookupname<span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" placeholder="lookupname" formControlName="lookupname"
+                          required>
+                        <small class="form-text text-danger"
+                          *ngIf="!editForm.get('bankid').valid && editForm.get('bankid').touched"> lookupnameis
+                          required</small>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <label>shortname <span class="text-danger"></span></label>
+                        <input type="text" class="form-control" placeholder="shortname" formControlName="shortname">
+                        <!-- <small class="form-text text-danger"
+                          *ngIf="!editForm.get('bankname').valid && editForm.get('bankname').touched"> Bank name is
+                          required</small> -->
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <label>parent <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="parent" formControlName="parent" required>
+                        <!-- <small class="form-text text-danger"
+                          *ngIf="!editForm.get('bankaccno').valid && editForm.get('bankaccno').touched"> Account is
+                          required</small> -->
+                        
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <label>parentid<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="parentid" formControlName="parentid" required>
+                        <small class="form-text text-danger"
+                          *ngIf="!editForm.get('parentid').valid && editForm.get('parentid').touched">parentid is
+                          required</small>
+                      </div>
+                      
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <label>lookuptype <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" placeholder="lookuptype" formControlName="lookuptype" required>
+                        <small class="form-text text-danger"
+                          *ngIf="!editForm.get('lookuptype').valid && editForm.get('lookuptype').touched"> lookuptype
+                          required</small>
+                        
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <label>lookuptype Id<span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" placeholder="lookuptype Id" formControlName="lookuptypeid" required>
+                        <small class="form-text text-danger"
+                          *ngIf="!register.get('lookuptypeid').valid && register.get('lookuptypeid').touched"> Please enter a valid
+                          lookuptypeid</small>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <label>ltypeparent<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="ltypeparent" formControlName="ifsccode" required>
+                        <!-- <small class="form-text text-danger"
+                          *ngIf="!editForm.get('ifsccode').valid && editForm.get('ifsccode').touched"> Please enter a valid
+                          IFSCCode</small> -->
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+                        <label>Swift Code <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="Swiftcode" formControlName="swiftcode" required>
+                        <!-- <small class="form-text text-danger"
+                          *ngIf="!editForm.get('swiftcode').valid && editForm.get('swiftcode').touched"> Please enter a valid
+                          SwiftCode</small> -->
+                        
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                        <label>Contact Id<span class="text-danger"></span></label>
+                        <textarea type="number" class="form-control" placeholder="contact Id"
+                          formControlName="contactid"></textarea>
+                          <small class="form-text text-danger"
+                          *ngIf="!editForm.get('contactid').valid && editForm.get('contactid').touched"> Please enter a valid
+                          Contact Id</small>  
+                      </div>
+                    </div>
+                    <!-- <div class="row">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                        <label>Created By<span class="text-danger"></span></label>
+                        <textarea type="number" class="form-control" placeholder="createdby"
+                          formControlName="createdby"></textarea>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                        <label>Last Modified By<span class="text-danger"></span></label>
+                        <textarea type="number" class="form-control" placeholder="modifiedby"
+                          formControlName="modifiedby"></textarea>
+                      </div>
+                    </div> -->
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary" [disabled]="!editForm.valid">Save</button>
+                      <button type="button" class="btn btn-light" (click)="modal.close()">Close</button>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    
+                  
+                      <mat-expansion-panel [expanded]="expanded">
+                        <mat-expansion-panel-header>
+                          <mat-panel-title style="font-weight: bolder;">
+                            BANKS
+                          </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <mat-table [dataSource]="BankdataSource">
+                          <ng-container matColumnDef="bankid">
+                            <mat-header-cell *matHeaderCellDef style="font-weight: bolder;"> ID </mat-header-cell>
+                            <mat-cell *matCellDef="let row">{{ row.bankid }}</mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="bankname">
+                            <mat-header-cell *matHeaderCellDef style="font-weight: bolder;"> Name </mat-header-cell>
+                            <mat-cell *matCellDef="let row">{{ row.bankname }}</mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="bankaddress">
+                            <mat-header-cell *matHeaderCellDef style="font-weight: bolder;"> Address </mat-header-cell>
+                            <mat-cell *matCellDef="let row">{{ row.bankaddress }}</mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="bankaccno">
+                            <mat-header-cell *matHeaderCellDef style="font-weight: bolder;"> Account No. </mat-header-cell>
+                            <mat-cell *matCellDef="let row">{{ row.bankaccno }}</mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="userid">
+                            <mat-header-cell *matHeaderCellDef style="font-weight: bolder;"> User ID </mat-header-cell>
+                            <mat-cell *matCellDef="let row">{{ row.userid }}</mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="companyid">
+                            <mat-header-cell *matHeaderCellDef style="font-weight: bolder;"> Company ID </mat-header-cell>
+                            <mat-cell *matCellDef="let row">{{ row.companyid }}</mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="ifsccode">
+                            <mat-header-cell *matHeaderCellDef style="font-weight: bolder;"> IFSC Code </mat-header-cell>
+                            <mat-cell *matCellDef="let row">{{ row.ifsccode }}</mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="swiftcode">
+                            <mat-header-cell *matHeaderCellDef style="font-weight: bolder;"> Swift Code </mat-header-cell>
+                            <mat-cell *matCellDef="let row">{{ row.swiftcode }}</mat-cell>
+                          </ng-container>
+                          <mat-header-row *matHeaderRowDef="['bankid', 'bankname', 'bankaddress', 'bankaccno', 'ifsccode', 'swiftcode']"></mat-header-row>
+                          <mat-row *matRowDef="let row; columns: ['bankid', 'bankname', 'bankaddress', 'bankaccno', 'ifsccode', 'swiftcode']"></mat-row>
+                        </mat-table>
+                      </mat-expansion-panel>
+                    </div>
+                  </form>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
